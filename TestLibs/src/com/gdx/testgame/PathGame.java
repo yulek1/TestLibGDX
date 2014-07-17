@@ -32,8 +32,10 @@ public class PathGame implements ApplicationListener {
 		Transact transact = world.getTransact();
 
 		transact.addAction(Actions.sequence(Actions.moveTo(0.5f*XPos, 0, duration),
-				Actions.moveTo(0.5f*XPos, 1f*YPos, duration), Actions.moveTo(0.2f*XPos, 0.2f*YPos, duration),
-				Actions.moveTo(0.3f*XPos, 0.75f*YPos, duration), Actions.moveTo(0.48f*XPos, 0.200f*YPos, duration),
+				Actions.moveTo(0.5f*XPos, 1f*YPos, duration), 
+				Actions.moveTo(0.2f*XPos, 0.2f*YPos, duration),
+				Actions.moveTo(0.3f*XPos, 0.75f*YPos, duration),
+				Actions.moveTo(0.48f*XPos, 0.200f*YPos, duration),
 				Actions.moveTo(0.480f*XPos, 0.320f*YPos, duration)));
 
 		world.addActor(transact);
