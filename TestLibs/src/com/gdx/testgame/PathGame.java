@@ -1,7 +1,5 @@
 package com.gdx.testgame;
 
-import javax.sound.midi.Sequence;
-
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
@@ -14,25 +12,33 @@ public class PathGame implements ApplicationListener {
 
 	private World world;
 	private Camera camera;
+	
+	private float XPos; // coeff screen width;
+	private float YPos; // coeff screen height;
 
 	@Override
 	public void create() {
-
-		camera = new OrthographicCamera(480, 320);
-		camera.position.set(480 / 2, 320 / 2, 0);
-
+		
+		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0);
+		
+		int duration = 3;
+		
+		normalizeGraphics();
+		
 		world = new World();
-		Gdx.input.setInputProcessor(world);
+		Gdx.input.setInputProcessor(world);		
 
 		Transact transact = world.getTransact();
 
-		transact.addAction(Actions.sequence(Actions.moveTo(100, 0, 3),
-				Actions.moveTo(100, 100, 3), Actions.moveTo(400, 100, 3),
-				Actions.moveTo(400, 200, 3), Actions.moveTo(480, 200, 3),
-				Actions.moveTo(480, 320, 3)));
+		transact.addAction(Actions.sequence(Actions.moveTo(0.5f*XPos, 0, duration),
+				Actions.moveTo(0.5f*XPos, 1f*YPos, duration), Actions.moveTo(0.2f*XPos, 0.2f*YPos, duration),
+				Actions.moveTo(0.3f*XPos, 0.75f*YPos, duration), Actions.moveTo(0.48f*XPos, 0.200f*YPos, duration),
+				Actions.moveTo(0.480f*XPos, 0.320f*YPos, duration)));
 
 		world.addActor(transact);
 	}
+	
 
 	@Override
 	public void dispose() {
@@ -63,6 +69,7 @@ public class PathGame implements ApplicationListener {
 	public void resume() {
 
 	}
+	
 
 	/**
 	 * @param args
@@ -70,5 +77,19 @@ public class PathGame implements ApplicationListener {
 	public static void main(String[] args) {
 		new LwjglApplication(new PathGame());
 
+	}
+	
+	private void normalizeGraphics(){
+		
+		float CW = 1f; 
+		float CH = 1f;
+		
+		CH =  CW* Gdx.graphics.getHeight()/Gdx.graphics.getWidth();
+		
+		float ppuX = (float)Gdx.graphics.getWidth() / CW;
+		float ppuY = (float)Gdx.graphics.getHeight() / CH;
+		
+		XPos = CW*ppuX;
+		YPos = CH*ppuY;
 	}
 }
