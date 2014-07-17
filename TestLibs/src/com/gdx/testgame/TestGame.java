@@ -39,7 +39,7 @@ public class TestGame extends ApplicationAdapter {
 	private Viewport viewport;
 	private Camera camera;
 	private static mxGraph graph;
-	private static mxGraphComponent graphComponent;
+	private static mxGraphComponent graphComponent; // это я буду использовать!!!
 	private static Object v1;
 	private static Object v2;
 
@@ -120,32 +120,4 @@ public class TestGame extends ApplicationAdapter {
 		// TODO Auto-generated method stub
 
 	}
-
-	/**
-	 * @param args
-	 */
-//	public static void main(String[] args) {
-//
-//		init();
-//
-//		new LwjglApplication(new TestGame());
-
-		//
-		//
-		// TestGame game = new TestGame();
-		// LwjglAWTCanvas canvas = new LwjglAWTCanvas(game);
-		//
-		// frame.getContentPane().setLayout(new BorderLayout());
-		// frame.getContentPane().add(canvas.getCanvas());
-		//
-		// // frame.getContentPane().add(graphComponent);
-		// // graphComponent.setOpaque(false);
-		// //frame.add(graphComponent);
-		// frame.pack();
-		//
-		// frame.setVisible(true);
-		// frame.setSize(400, 400);
-
-//	}
-
 }
