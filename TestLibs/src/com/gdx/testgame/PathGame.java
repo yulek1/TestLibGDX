@@ -131,20 +131,30 @@ public class PathGame implements ApplicationListener {
 	private SequenceAction generateSequence(Line[] lineArray, float speed){
 		
 		SequenceAction sa = new SequenceAction();
-				
-		MoveToAction[] mta = new MoveToAction[lineArray.length];
+		double commonPath = 0.0;
 		double duration[] = new double[lineArray.length];
+		double path[] = new double[lineArray.length];
+		
+		// считаю общий путь
 		for ( int i = 1; i < lineArray.length - 1; i++){
-			double path = 100 * Math.sqrt(Math.pow((lineArray[i].getX2() - lineArray[i-1].getX1()), 2) + Math.pow((lineArray[i].getY2() - lineArray[i].getY1()), 2));
-			duration[i-1] = path/speed;
-			mta[i] = new MoveToAction();
-			mta[i].setX(lineArray[i].getX2()*XPos);
-			mta[i].setY(lineArray[i].getY2()*YPos);
-			mta[i].setDuration((float)duration[i-1]);
-			
-			sa.addAction(mta[i]);
+			path[i-1] = 100 * Math.sqrt(Math.pow((lineArray[i].getX2() - lineArray[i-1].getX1()), 2) + Math.pow((lineArray[i].getY2() - lineArray[i].getY1()), 2));
+			commonPath = commonPath + path[i-1];
 		}
 		
+		// длительность
+		double commonDuration = commonPath/speed;
+				
+		MoveToAction[] mta = new MoveToAction[lineArray.length];
+		for ( int i = 1; i < lineArray.length - 1; i++){
+			duration[i-1] = (path[i-1]/commonPath) * commonDuration;
+			mta[i-1] = new MoveToAction();
+			mta[i-1].setX(lineArray[i].getX2()*XPos);
+			mta[i-1].setY(lineArray[i].getY2()*YPos);
+			mta[i-1].setDuration((float)duration[i-1]);
+			
+			sa.addAction(mta[i-1]);
+		}
+							
 		return sa;
 	}
 	
