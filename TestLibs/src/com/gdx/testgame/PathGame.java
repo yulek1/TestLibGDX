@@ -32,7 +32,7 @@ public class PathGame implements ApplicationListener {
 
 		PolylineSegment[] lineArray = this.generateRandomPath(20);
 		int speed = 20;
-
+		
 		transact.addAction(this.generateSequence(lineArray, speed));
 
 		world.addActor(transact);
@@ -80,16 +80,12 @@ public class PathGame implements ApplicationListener {
 		private float X1, X2;
 		private float Y1, Y2;
 
-		private PolylineSegment previousLine;
-
 		public PolylineSegment(float X1, float Y1, float X2, float Y2) {
 			this.X1 = X1;
 			this.Y1 = Y1;
 
 			this.X2 = X2;
 			this.Y2 = Y2;
-
-			this.previousLine = null;
 		}
 
 		public PolylineSegment(PolylineSegment prevLine, float X, float Y) {
@@ -97,8 +93,6 @@ public class PathGame implements ApplicationListener {
 			this.Y1 = prevLine.getY2();
 			this.X2 = X;
 			this.Y2 = Y;
-
-			this.previousLine = prevLine;
 		}
 
 		public float getX1() {
@@ -140,28 +134,26 @@ public class PathGame implements ApplicationListener {
 		double segmentLenght[] = new double[polyline.length];
 
 		// считаю общий путь
-		for (int i = 1; i < polyline.length - 1; i++) {
-			segmentLenght[i - 1] = 100 * Math
+		for (int i = 0; i < polyline.length-1; i++) {
+			segmentLenght[i] = 100 * Math
 					.sqrt(Math.pow(
-							(polyline[i].getX2() - polyline[i - 1].getX1()),
+							(polyline[i].getX2() - polyline[i].getX1()),
 							2)
 							+ Math.pow((polyline[i].getY2() - polyline[i]
 									.getY1()), 2));
-			commonPath = commonPath + segmentLenght[i - 1];
+			commonPath = commonPath + segmentLenght[i];
 		}
 
 		// длительность
-		double commonDuration = commonPath / speed;
-
+		
 		MoveToAction[] moveToActions = new MoveToAction[polyline.length];
-		for (int i = 1; i < polyline.length - 1; i++) {
-			durations[i - 1] = (segmentLenght[i - 1] / commonPath) * commonDuration;
-			moveToActions[i - 1] = new MoveToAction();
-			moveToActions[i - 1].setX(polyline[i].getX2() * XPos);
-			moveToActions[i - 1].setY(polyline[i].getY2() * YPos);
-			moveToActions[i - 1].setDuration((float) durations[i - 1]);
+		for (int i = 0; i < polyline.length - 1; i++) {
+			durations[i] = (segmentLenght[i] / speed);
+			moveToActions[i] = new MoveToAction();
+			moveToActions[i].setPosition(polyline[i].getX2() * XPos, polyline[i].getY2() * YPos);
+			moveToActions[i].setDuration((float) durations[i]);
 
-			sequenceAction.addAction(moveToActions[i - 1]);
+			sequenceAction.addAction(moveToActions[i]);
 		}
 
 		return sequenceAction;
