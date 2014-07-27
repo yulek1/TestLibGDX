@@ -126,29 +126,21 @@ public class PathGame implements ApplicationListener {
 	private SequenceAction generateSequence(PolylineSegment[] polyline, float speed) {
 
 		SequenceAction sequenceAction = new SequenceAction();
-		double commonPath = 0.0;
-		double durations[] = new double[polyline.length];
-		double segmentLenght[] = new double[polyline.length];
 
-		// считаю общий путь
-		for (int i = 0; i < polyline.length-1; i++) {
-			segmentLenght[i] = Math
+		MoveToAction[] moveToActions = new MoveToAction[polyline.length];
+		for (int i = 0; i < polyline.length - 1; i++) {
+			
+			double segmentLenght = Math
 					.sqrt(Math.pow(
 							(polyline[i].getX2() - polyline[i].getX1()),
 							2)
 							+ Math.pow((polyline[i].getY2() - polyline[i]
 									.getY1()), 2));
-			commonPath = commonPath + segmentLenght[i];
-		}
 
-		// длительность
-		
-		MoveToAction[] moveToActions = new MoveToAction[polyline.length];
-		for (int i = 0; i < polyline.length - 1; i++) {
-			durations[i] = (segmentLenght[i] / speed);
+			float duration = (float)segmentLenght/speed;
 			moveToActions[i] = new MoveToAction();
 			moveToActions[i].setPosition(polyline[i].getX2(), polyline[i].getY2());
-			moveToActions[i].setDuration((float) durations[i]);
+			moveToActions[i].setDuration(duration);
 
 			sequenceAction.addAction(moveToActions[i]);
 		}
