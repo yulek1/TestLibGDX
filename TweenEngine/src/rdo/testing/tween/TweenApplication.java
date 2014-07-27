@@ -4,33 +4,29 @@ import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
-import aurelienribon.tweenengine.TweenEquations;
+
 import aurelienribon.tweenengine.TweenManager;
-import aurelienribon.tweenengine.equations.Bounce;
+
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.graphics.Camera;
+
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.TimeUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+
 
 public class TweenApplication implements ApplicationListener {
 	
 	 	private OrthographicCamera camera;
 	    private SpriteBatch batch;
 	    private Texture texture;
-	    private Texture CircTxt, ElasticTxt, QuadTxt; //** text **//
 	    private Sprite sprite1;
 	    private TweenManager tweenManager;
 
@@ -95,10 +91,7 @@ public class TweenApplication implements ApplicationListener {
 	        batch.end();
 	        
 	        
-	        tweenManager.update(Gdx.graphics.getDeltaTime());
-	        
-
-        
+	        tweenManager.update(Gdx.graphics.getDeltaTime());      
 
 	}
 
@@ -133,4 +126,8 @@ public class TweenApplication implements ApplicationListener {
             
         }
     };
+    
+    private void setCamera(){
+    	
+    }
 }

@@ -2,12 +2,8 @@ package rdo.testing.tween;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenAccessor;
-import aurelienribon.tweenengine.TweenManager;
-import aurelienribon.tweenengine.equations.Bounce;
 
 public class SpriteAccessor implements TweenAccessor<Sprite> {
 	public static final int POS_XY = 1;
