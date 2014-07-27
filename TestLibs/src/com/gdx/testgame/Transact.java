@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Transact extends Actor {
 		
-	Texture texture = new Texture(Gdx.files.internal("data/test.png"));	
+	Texture texture = new Texture(Gdx.files.internal("data/mail2_16x16.gif"));	
 
 	@Override
 	public void draw(Batch batch, float alpha) {
