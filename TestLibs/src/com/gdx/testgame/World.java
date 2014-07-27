@@ -17,6 +17,4 @@ public class World extends Stage {
 	private void createWorld(){
 		transact = new Transact();
 	}
-	
-
 }

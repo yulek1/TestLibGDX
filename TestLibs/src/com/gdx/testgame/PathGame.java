@@ -10,28 +10,25 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class PathGame implements ApplicationListener {
 
 	private World world;
 	private Camera camera;
-
-	private float XPos; // coeff screen width;
-	private float YPos; // coeff screen height;
+	private Viewport viewport;
 
 	@Override
 	public void create() {
 
-		normalizeGraphics();
-
-		world = new World();
+		setCamera();
 
 		Gdx.input.setInputProcessor(world);
 
 		Transact transact = world.getTransact();
-
+		
 		PolylineSegment[] lineArray = this.generateRandomPath(20);
-		int speed = 20;
+		float speed = 0.5f;
 		
 		transact.addAction(this.generateSequence(lineArray, speed));
 
@@ -135,7 +132,7 @@ public class PathGame implements ApplicationListener {
 
 		// считаю общий путь
 		for (int i = 0; i < polyline.length-1; i++) {
-			segmentLenght[i] = 100 * Math
+			segmentLenght[i] = Math
 					.sqrt(Math.pow(
 							(polyline[i].getX2() - polyline[i].getX1()),
 							2)
@@ -150,7 +147,7 @@ public class PathGame implements ApplicationListener {
 		for (int i = 0; i < polyline.length - 1; i++) {
 			durations[i] = (segmentLenght[i] / speed);
 			moveToActions[i] = new MoveToAction();
-			moveToActions[i].setPosition(polyline[i].getX2() * XPos, polyline[i].getY2() * YPos);
+			moveToActions[i].setPosition(polyline[i].getX2(), polyline[i].getY2());
 			moveToActions[i].setDuration((float) durations[i]);
 
 			sequenceAction.addAction(moveToActions[i]);
@@ -158,21 +155,20 @@ public class PathGame implements ApplicationListener {
 
 		return sequenceAction;
 	}
-
-	private void normalizeGraphics() {
-
+	
+	private void setCamera(){
+		
 		float CW = 1f;
 		float CH = 1f;
-
+		
+		world = new World();
+		viewport = world.getViewport();
+		viewport.setWorldHeight(CH);
+		viewport.setWorldWidth(CW);
 		camera = new OrthographicCamera(CW, -CH);
 		camera.position.set(CW / 2, CH / 2, 0);
-
-		CH = CW * Gdx.graphics.getHeight() / Gdx.graphics.getWidth();
-
-		float ppuX = (float) Gdx.graphics.getWidth() / CW;
-		float ppuY = (float) Gdx.graphics.getHeight() / CH;
-
-		XPos = CW * ppuX;
-		YPos = CH * ppuY;
+		viewport.setCamera(camera);
+	
 	}
+
 }
