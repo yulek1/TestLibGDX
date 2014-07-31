@@ -157,7 +157,7 @@ public class PathGame implements ApplicationListener {
 		viewport = world.getViewport();
 		viewport.setWorldHeight(CH);
 		viewport.setWorldWidth(CW);
-		camera = new OrthographicCamera(CW, -CH);
+		camera = new OrthographicCamera(CW, CH);
 		camera.position.set(CW / 2, CH / 2, 0);
 		viewport.setCamera(camera);
 	
